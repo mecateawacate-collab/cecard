@@ -1,0 +1,184 @@
+<div class="flex justify-between items-center text-[14px] px-4 py-1 bg-white text-gray-800 border-b border-gray-200 relative">
+  <div class="flex space-x-4 items-center mr-auto pl-0">
+    <a aria-label="Facebook" class="hover:text-gray-600" href="https://www.facebook.com/people/Centro-de-Conciliaci%C3%B3n-Arbitraje-y-Resoluci%C3%B3n-de-Disputas-Cecard/100083397996139/" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-facebook-f text-[16px] hover:text-blue-600 transition duration-200"></i>
+    </a>
+    <a aria-label="Instagram" class="hover:text-gray-600" href="https://www.instagram.com/cecardconciliacionarbitraje?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-instagram text-[16px] hover:text-pink-500 transition duration-200"></i>
+    </a>
+    <a aria-label="LinkedIn" class="hover:text-gray-600" href="https://www.linkedin.com/in/centro-cecard-9059852ab/" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-linkedin-in text-[16px] hover:text-blue-500 transition duration-200"></i>
+    </a>
+    <a aria-label="TikTok" class="hover:text-gray-600" href="https://www.tiktok.com/@cca.cecard?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-tiktok text-[16px] hover:text-cyan-400 transition duration-200"></i>
+    </a>
+  </div>
+
+  <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 whitespace-nowrap pointer-events-none text-[19px]">
+    Resolviendo conflictos por una cultura de paz
+  </div>
+</div>
+
+<div class="block md:hidden text-center text-[13px] mt-1 mb-1">
+  Resolviendo conflictos por una cultura de paz
+</div>
+
+<nav class="bg-[#3B2E6D] text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-24 md:h-28">
+      <a routerLink="/" class="flex items-center" (click)="cerrar_menu()">
+        <img src="/navbar/logo.png" alt="Logo Cecard" class="h-16 md:h-16 w-auto">
+      </a>
+
+<ul class="hidden md:flex space-x-6 text-base font-semibold items-center">
+  <li>
+    <a
+      routerLink="/"
+      routerLinkActive="text-pink-400"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="hover:text-pink-400"
+    >
+      Inicio
+    </a>
+  </li>
+
+  <li class="relative group">
+    <a
+      routerLink="/nosotros"
+      routerLinkActive="text-pink-400"
+      class="hover:text-pink-400 flex items-center gap-2"
+    >
+      Nosotros
+      <i class="fas fa-chevron-down text-xs"></i>
+    </a>
+
+    <div class="absolute left-0 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 bg-white text-gray-800 rounded shadow-lg min-w-52 z-50">
+      <a
+        routerLink="/nosotros"
+        class="block px-4 py-3 hover:bg-pink-600 hover:text-white rounded-t"
+      >
+        Ver página
+      </a>
+    </div>
+  </li>
+
+  <li class="relative group">
+    <a
+      routerLink="/servicios"
+      routerLinkActive="text-pink-400"
+      class="hover:text-pink-400 flex items-center gap-2"
+    >
+      Servicios
+      <i class="fas fa-chevron-down text-xs"></i>
+    </a>
+<div class="absolute left-0 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 bg-white text-gray-800 rounded shadow-lg min-w-52 z-50">
+      <a class="block px-4 py-3 hover:bg-pink-600 hover:text-white">Conciliación</a>
+      <a class="block px-4 py-3 hover:bg-pink-600 hover:text-white">Arbitraje</a>
+      <a class="block px-4 py-3 hover:bg-pink-600 hover:text-white rounded-b">JPRD</a>
+    </div>
+  </li>
+
+  <li class="relative group">
+    <a
+      routerLink="/transparencia"
+      routerLinkActive="text-pink-400"
+      class="hover:text-pink-400 flex items-center gap-2"
+    >
+      Transparencia
+      <i class="fas fa-chevron-down text-xs"></i>
+    </a>
+
+<div class="absolute left-0 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 bg-white text-gray-800 rounded shadow-lg min-w-52 z-50">
+      <a class="block px-4 py-3 hover:bg-pink-600 hover:text-white">Reglamento Interno</a>
+      <a class="block px-4 py-3 hover:bg-pink-600 hover:text-white rounded-b">Laudos Arbitrales</a>
+    </div>
+  </li>
+
+  <li>
+    <a
+      routerLink="/comunicados"
+      routerLinkActive="text-pink-400"
+      class="hover:text-pink-400"
+    >
+      Comunicados
+    </a>
+  </li>
+</ul>
+
+      <div class="hidden md:flex items-center space-x-4">
+        <a
+          routerLink="/mesa-partes"
+          class="ml-4 px-3 py-1 border border-white rounded text-white hover:bg-pink-600 hover:border-pink-600 text-sm font-semibold"
+        >
+          Sistema de Gestión Documental
+        </a>
+      </div>
+
+      <div class="md:hidden">
+        <button type="button" class="text-white focus:outline-none" (click)="alternar_menu()">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+
+    @if (menu_abierto) {
+      <div class="md:hidden mt-2 space-y-2 text-white bg-gray-800 p-4 rounded">
+        <a routerLink="/" class="block px-4 py-2 hover:bg-pink-600 rounded" (click)="cerrar_menu()">
+          Inicio
+        </a>
+
+        <div>
+          <button type="button" class="w-full text-left flex justify-between items-center px-4 py-2 hover:bg-pink-600 rounded" (click)="alternar_nosotros()">
+            Nosotros
+            <i class="fas fa-chevron-down text-xs"></i>
+          </button>
+
+          @if (submenu_nosotros) {
+            <div class="pl-4 mt-1 space-y-1">
+              <a routerLink="/nosotros" class="block px-4 py-2 hover:bg-pink-600 rounded text-sm" (click)="cerrar_menu()">
+                Ver página
+              </a>
+            </div>
+          }
+        </div>
+
+        <div>
+          <button type="button" class="w-full text-left flex justify-between items-center px-4 py-2 hover:bg-pink-600 rounded" (click)="alternar_servicios()">
+            Servicios
+            <i class="fas fa-chevron-down text-xs"></i>
+          </button>
+
+          @if (submenu_servicios) {
+            <div class="pl-4 mt-1 space-y-1">
+              <a class="block px-4 py-2 hover:bg-pink-600 rounded text-sm">Conciliación</a>
+              <a class="block px-4 py-2 hover:bg-pink-600 rounded text-sm">Arbitraje</a>
+              <a class="block px-4 py-2 hover:bg-pink-600 rounded text-sm">JPRD</a>
+            </div>
+          }
+        </div>
+
+        <div>
+          <button type="button" class="w-full text-left flex justify-between items-center px-4 py-2 hover:bg-pink-600 rounded" (click)="alternar_transparencia()">
+            Transparencia
+            <i class="fas fa-chevron-down text-xs"></i>
+          </button>
+
+          @if (submenu_transparencia) {
+            <div class="pl-4 mt-1 space-y-1">
+              <a class="block px-4 py-2 hover:bg-pink-600 rounded text-sm">Reglamento Interno</a>
+              <a class="block px-4 py-2 hover:bg-pink-600 rounded text-sm">Laudos Arbitrales</a>
+            </div>
+          }
+        </div>
+
+        <a class="block px-4 py-2 hover:bg-pink-600 rounded">
+          Comunicados
+        </a>
+
+        <a routerLink="/mesa-partes" class="block px-4 py-2 hover:bg-pink-600 rounded" (click)="cerrar_menu()">
+          Sistema de Gestión Documental
+        </a>
+      </div>
+    }
+  </div>
+</nav>

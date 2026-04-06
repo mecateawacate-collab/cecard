@@ -1,0 +1,258 @@
+<section class="mx-auto w-full max-w-5xl px-4 py-10 md:px-6">
+  <div class="mx-auto max-w-3xl">
+    <div class="mb-8 text-center">
+      <h2 class="text-3xl font-bold text-slate-900 md:text-4xl">
+        Mesa de Partes Virtual
+      </h2>
+      <p class="mt-2 text-sm text-slate-500 md:text-base">
+        Complete los siguientes campos para registrar su solicitud
+      </p>
+    </div>
+
+    <form class="space-y-6" (ngSubmit)="enviar_formulario()" #formulario="ngForm">
+      <fieldset class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+        <legend class="px-2 text-sm font-medium text-indigo-600">
+          Datos del solicitante
+        </legend>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div class="md:col-span-2">
+            <label for="nombre" class="mb-2 block text-sm font-medium text-slate-700">
+              Nombre y apellidos <span class="text-rose-600">*</span>
+            </label>
+            <input
+              id="nombre"
+              name="nombre"
+              type="text"
+              [(ngModel)]="nombre"
+              required
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+            />
+          </div>
+
+          <div>
+            <label for="tipo_doc" class="mb-2 block text-sm font-medium text-slate-700">
+              Tipo de documento <span class="text-rose-600">*</span>
+            </label>
+            <select
+              id="tipo_doc"
+              name="tipo_doc"
+              [(ngModel)]="tipo_doc"
+              required
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+            >
+              <option value="">Selecciona</option>
+              <option value="DNI">DNI</option>
+              <option value="RUC">RUC</option>
+              <option value="CE">CE</option>
+              <option value="Pasaporte">Pasaporte</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="num_doc" class="mb-2 block text-sm font-medium text-slate-700">
+              Número de documento <span class="text-rose-600">*</span>
+            </label>
+            <input
+              id="num_doc"
+              name="num_doc"
+              type="text"
+              [(ngModel)]="num_doc"
+              required
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-slate-700">
+              Correo electrónico <span class="text-rose-600">*</span>
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              [(ngModel)]="email"
+              required
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+            />
+          </div>
+
+          <div>
+            <label for="telefono" class="mb-2 block text-sm font-medium text-slate-700">
+              Teléfono
+            </label>
+            <input
+              id="telefono"
+              name="telefono"
+              type="text"
+              [(ngModel)]="telefono"
+              placeholder="Opcional"
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+            />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+        <legend class="px-2 text-sm font-medium text-indigo-600">
+          Solicitud
+        </legend>
+
+        <div class="grid grid-cols-1 gap-4">
+          <div>
+            <label for="destinatario" class="mb-2 block text-sm font-medium text-slate-700">
+              Dirigido a <span class="text-rose-600">*</span>
+            </label>
+            <select
+              id="destinatario"
+              name="destinatario"
+              [(ngModel)]="destinatario"
+              required
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+            >
+              <option value="">
+                {{ cargando_oficinas ? 'Cargando oficinas...' : 'Selecciona una opción' }}
+              </option>
+              @for (oficina of oficinas; track oficina.oficina) {
+                <option [value]="oficina.oficina">
+                  {{ oficina.oficina }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div>
+            <label for="asunto" class="mb-2 block text-sm font-medium text-slate-700">
+              Asunto <span class="text-rose-600">*</span>
+            </label>
+            <input
+              id="asunto"
+              name="asunto"
+              type="text"
+              maxlength="80"
+              [(ngModel)]="asunto"
+              placeholder="Ejemplo: Solicitud de información"
+              required
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+            />
+            <p class="mt-2 text-xs text-slate-500">
+              {{ asunto_largo }}/80
+            </p>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+        <legend class="px-2 text-sm font-medium text-indigo-600">
+          Adjuntar documento
+        </legend>
+
+        <div>
+          <label for="pdf" class="mb-2 block text-sm font-medium text-slate-700">
+            Documento (PDF) <span class="text-rose-600">*</span>
+          </label>
+
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <label
+              for="pdf"
+              class="inline-flex cursor-pointer items-center justify-center rounded-lg bg-[#5b3f97] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#4c3480]"
+            >
+              Cargar archivo (PDF)
+            </label>
+
+            <span class="text-sm italic text-slate-500">
+              {{ nombre_archivo }}
+            </span>
+          </div>
+
+          <input
+            id="pdf"
+            type="file"
+            accept="application/pdf"
+            class="hidden"
+            (change)="seleccionar_pdf($event)"
+          />
+
+          <p class="mt-4 text-sm leading-6 text-slate-600">
+            El archivo adjunto debe tener un tamaño máximo de
+            <strong>20 MB</strong>. Si excede ese límite, súbalo a una
+            plataforma en la nube y coloque el enlace a continuación.
+          </p>
+
+          <input
+            id="link_pdf"
+            name="link_pdf"
+            type="url"
+            [(ngModel)]="link_pdf"
+            placeholder="Enlace en la nube (Google Drive, OneDrive, etc.)"
+            class="mt-4 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+          />
+        </div>
+      </fieldset>
+
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm leading-7 text-slate-600">
+        <p class="mb-3">
+          1. Acepto que todo el trámite de la solicitud será notificado a mi correo
+          electrónico proporcionado.
+        </p>
+        <p>
+          2. En cumplimiento de la Ley N.° 29733, Ley de Protección de Datos
+          Personales, se informa que los datos proporcionados serán utilizados
+          exclusivamente para el trámite solicitado.
+        </p>
+      </div>
+
+      <div class="flex items-start gap-3">
+        <input
+          id="acepto_terminos"
+          name="acepto_terminos"
+          type="checkbox"
+          [(ngModel)]="acepto_terminos"
+          class="mt-1 h-4 w-4 rounded border-slate-300 text-[#5b3f97] focus:ring-[#5b3f97]"
+        />
+        <label for="acepto_terminos" class="text-sm font-medium text-[#be185d]">
+          Acepto los Términos y Condiciones.
+        </label>
+      </div>
+
+    @if (exito) {
+    <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">
+        <p class="font-semibold">Solicitud enviada correctamente.</p>
+        <p class="mt-1">{{ mensaje }}</p>
+
+        <div class="mt-4">
+        <button
+            type="button"
+            (click)="nueva_solicitud()"
+            class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
+        >
+            Registrar otra solicitud
+        </button>
+        </div>
+    </div>
+    }
+
+      @if (error) {
+        <div class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
+          {{ mensaje }}
+        </div>
+      }
+
+      <div>
+        <button
+          type="submit"
+          [disabled]="enviando || solicitud_enviada"
+          class="inline-flex items-center justify-center rounded-full bg-slate-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-70"
+        >
+          {{
+            enviando
+              ? 'Enviando...'
+              : solicitud_enviada
+              ? 'Solicitud enviada'
+              : 'Enviar solicitud'
+          }}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
