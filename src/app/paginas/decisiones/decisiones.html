@@ -1,0 +1,100 @@
+<section class="bg-white text-[#1E1B3A]">
+  <div class="mx-auto mt-6 max-w-7xl px-4">
+    <div class="relative overflow-hidden rounded-lg shadow-md">
+      <img
+        src="laudos/img/laudos.png"
+        alt="Decisiones en Juntas de Prevención y Resolución de Disputas"
+        class="h-48 w-full rounded-lg object-cover"
+        width="1200"
+        height="150"
+      />
+    </div>
+  </div>
+
+  <div class="bg-[#F6F4FA] text-[#1E1B3A]">
+    <div class="mx-auto max-w-4xl px-4 py-10">
+      <h1 class="mb-6 text-center text-3xl font-extrabold text-[#1E1B3A]">
+        Decisiones en Juntas de Prevención y Resolución de Disputas - JPRD
+      </h1>
+
+      <p class="mb-6 text-center leading-7 text-[#26324A] md:text-justify">
+        En cumplimiento de la
+        <span class="font-bold text-[#1E1B3A]">Ley N° 32069</span>
+        y el
+        <span class="font-bold text-[#1E1B3A]">
+          Decreto Supremo N° 009-2025
+        </span>,
+        se pone a disposición las decisiones emitidas en el marco de las Juntas
+        de Prevención y Resolución de Disputas.
+      </p>
+
+      <p class="mb-10 text-center leading-7 text-[#26324A] md:text-justify">
+        Las decisiones se encuentran clasificadas según el número de expediente
+        de cada procedimiento y vienen acompañadas del acta de inicio de
+        funciones de cada caso.
+      </p>
+
+      <div class="mb-10 flex flex-wrap justify-center gap-3">
+        @for (anio of anios; track anio) {
+          <button
+            type="button"
+            (click)="seleccionarAnio(anio)"
+            [class]="
+              anioSeleccionado === anio
+                ? 'rounded-full border border-[#3B2E6D] bg-[#3B2E6D] px-6 py-2 font-bold text-white shadow-lg ring-2 ring-[#A52A5A] transition-all duration-300'
+                : 'rounded-full border border-[#3B2E6D] bg-white px-6 py-2 font-bold text-[#1E1B3A] shadow-sm transition-all duration-300 hover:bg-[#3B2E6D] hover:text-white'
+            "
+          >
+            {{ anio }}
+          </button>
+        }
+      </div>
+
+      <div class="rounded-xl border border-[#E5DFF0] bg-white p-6 shadow-xl">
+        @if (anioSeleccionado) {
+          @if (expedientesSeleccionados.length > 0) {
+            <h2 class="mb-6 text-center text-xl font-extrabold text-[#1E1B3A]">
+              Expedientes del año {{ anioSeleccionado }}
+            </h2>
+
+            <div class="grid gap-4">
+              @for (expediente of expedientesSeleccionados; track expediente.archivo) {
+                <div
+                  class="flex flex-col gap-4 rounded-lg border border-[#D9D4E8] bg-[#FAFAFC] p-4 shadow-sm transition-all duration-300 hover:translate-x-1 hover:border-[#A52A5A] hover:bg-white hover:shadow-md sm:flex-row sm:items-center"
+                >
+                  <div class="flex items-center gap-4 sm:flex-grow">
+                    <div class="rounded-lg bg-[#FEE2E2] p-3 shadow-sm">
+                      <i class="fas fa-file-pdf text-xl text-[#DC2626]"></i>
+                    </div>
+
+                    <p class="font-bold text-[#001F3F]">
+                      {{ expediente.nombre }}
+                    </p>
+                  </div>
+
+                  <a
+                    [href]="expediente.archivo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#3B2E6D] px-5 py-2 text-center text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-[#A52A5A] hover:shadow-lg"
+                  >
+                    <i class="fas fa-download"></i>
+                    Descargar
+                  </a>
+                </div>
+              }
+            </div>
+          } @else {
+            <p class="py-10 text-center font-semibold text-[#6B7280]">
+              No hay expedientes disponibles para el año {{ anioSeleccionado }}
+            </p>
+          }
+        } @else {
+          <p class="py-10 text-center font-semibold text-[#6B7280]">
+            Seleccione un año para visualizar los expedientes
+          </p>
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,166 @@
+<section class="bg-gradient-to-b from-white to-[#F8F6FC] text-gray-900">
+  <!-- Banner -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <div class="relative rounded-2xl overflow-hidden shadow-lg">
+      <img
+        src="servicios/dispute/dispute.png"
+        alt="Banner de capacitaciones CECARD"
+        class="w-full h-52 sm:h-64 md:h-80 object-cover"
+      />
+
+      <div class="absolute inset-0 bg-black/35 flex items-center justify-center text-center px-4">
+        <h1 class="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold drop-shadow-lg">
+          Capacitaciones
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Introducción -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+    <div class="text-center max-w-4xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#3B2E6D] mb-5">
+        Capacitaciones CECARD
+      </h2>
+
+      <div class="w-24 h-1 bg-pink-600 mx-auto mb-6 rounded-full"></div>
+
+      <div class="space-y-4 text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed text-justify">
+        <p>
+          En CECARD ofrecemos programas de capacitación especializados en mecanismos de resolución de conflictos,
+          como arbitraje, conciliación y juntas de prevención y resolución de disputas. Nuestras actividades
+          formativas están dirigidas a profesionales, funcionarios públicos, empresas y estudiantes interesados
+          en fortalecer sus competencias técnicas y jurídicas.
+        </p>
+
+        <p>
+          A continuación encontrarás los afiches organizados por año, desde los eventos más actuales hasta los
+          más antiguos, para facilitar su visualización y consulta.
+        </p>
+      </div>
+    </div>
+
+    <!-- Eventos por año -->
+    <div class="mt-12 space-y-14">
+      @for (anio of aniosOrdenados; track anio) {
+        <section>
+          <div class="mb-6 rounded-2xl px-6 py-4 shadow-md bg-gradient-to-r from-[#3B2E6D] to-[#C02C6C]">
+            <h3 class="text-2xl md:text-3xl font-extrabold text-white">
+              Eventos del {{ anio }}
+            </h3>
+          </div>
+
+          @if (eventosPorAnio(anio).length > 0) {
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
+              @for (evento of eventosPorAnio(anio); track evento.titulo) {
+                <article class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-2xl">
+                  <div class="relative">
+                    <img
+                      [src]="evento.imagen"
+                      [alt]="evento.alt"
+                      class="h-[420px] w-full cursor-pointer object-cover"
+                      (click)="abrirModal(evento)"
+                    />
+
+                    <span class="absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-bold text-white {{ evento.estadoColor }}">
+                      {{ evento.estado }}
+                    </span>
+                  </div>
+
+                  <div class="p-5">
+                    <h4 class="h-14 overflow-hidden text-lg font-bold text-[#2e2a57] leading-tight">
+                      {{ evento.titulo }}
+                    </h4>
+
+                    <p class="mt-2 text-sm text-gray-600">
+                      <i class="fas fa-calendar-alt mr-2 text-pink-600"></i>
+                      {{ evento.fecha }}
+                    </p>
+
+                    <div class="mt-4 flex flex-col gap-3 sm:flex-row">
+                      <button
+                        type="button"
+                        class="flex-1 rounded-lg bg-pink-600 px-4 py-2.5 font-semibold text-white hover:bg-pink-700 transition"
+                        (click)="alternarInfo(evento)"
+                      >
+                        Ver información
+                      </button>
+
+                      <button
+                        type="button"
+                        class="flex-1 rounded-lg border border-[#3B2E6D] px-4 py-2.5 font-semibold text-[#3B2E6D] hover:bg-[#3B2E6D] hover:text-white transition"
+                        (click)="abrirModal(evento)"
+                      >
+                        Ampliar
+                      </button>
+                    </div>
+
+                    @if (evento.mostrarInfo) {
+                      <div class="mt-4 space-y-2 border-t pt-4 text-sm text-gray-700">
+                        <p>
+                          <strong>Título:</strong> {{ evento.titulo }}
+                        </p>
+
+                        <p>
+                          <strong>Fecha:</strong> {{ evento.fecha }}
+                        </p>
+
+                        <p>
+                          <strong>Descripción:</strong> {{ evento.descripcion }}
+                        </p>
+
+                        @if (evento.enlace && evento.enlace !== '#') {
+                          <a
+                            [href]="evento.enlace"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center font-semibold text-pink-600 hover:underline"
+                          >
+                            {{ evento.textoEnlace }}
+                            <i class="fas fa-external-link-alt ml-2"></i>
+                          </a>
+                        } @else {
+                          <span class="inline-flex items-center font-semibold text-gray-500">
+                            {{ evento.textoEnlace }}
+                          </span>
+                        }
+                      </div>
+                    }
+                  </div>
+                </article>
+              }
+            </div>
+          } @else {
+            <div class="rounded-2xl border border-dashed border-gray-300 bg-gray-50 px-6 py-8 text-center text-gray-600">
+              No hay afiches registrados para {{ anio }}.
+            </div>
+          }
+        </section>
+      }
+    </div>
+  </div>
+
+  <!-- Modal de imagen -->
+  @if (modalAbierto) {
+    <div
+      class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4"
+      (click)="cerrarModal()"
+    >
+      <button
+        type="button"
+        class="absolute right-6 top-4 text-4xl font-bold text-white hover:text-pink-300"
+        aria-label="Cerrar imagen"
+        (click)="cerrarModal(); $event.stopPropagation()"
+      >
+        &times;
+      </button>
+
+      <img
+        [src]="imagenModal"
+        [alt]="altModal"
+        class="max-h-[90vh] max-w-full rounded-xl object-contain shadow-2xl"
+        (click)="$event.stopPropagation()"
+      />
+    </div>
+  }
+</section>

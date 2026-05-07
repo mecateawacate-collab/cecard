@@ -1,0 +1,423 @@
+<section class="bg-gradient-to-b from-white to-[#F8F6FC] text-gray-900">
+  <!-- Banner -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <div class="relative rounded-2xl overflow-hidden shadow-lg">
+      <img
+        src="servicios/arbitraje/arbitraje.png"
+        alt="Servicio de arbitraje CECARD"
+        class="w-full h-52 sm:h-64 md:h-80 object-cover"
+      />
+
+      <div class="absolute inset-0 bg-black/35 flex items-center justify-center text-center px-4">
+        <h1 class="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold drop-shadow-lg">
+          Arbitraje
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Introducción -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+    <div class="text-center max-w-4xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#3B2E6D] mb-5">
+        Arbitraje
+      </h2>
+
+      <div class="w-24 h-1 bg-pink-600 mx-auto mb-6 rounded-full"></div>
+
+      <p class="text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed text-justify md:text-center">
+        El arbitraje es un mecanismo alternativo de solución de conflictos mediante el cual las partes
+        someten su controversia a uno o más árbitros, quienes emiten una decisión definitiva y de obligatorio
+        cumplimiento. CECARD administra este proceso garantizando imparcialidad, confidencialidad y celeridad,
+        conforme a su reglamento y la normativa vigente.
+      </p>
+    </div>
+
+    <!-- Contenido con pestañas -->
+    <div class="mt-12 bg-white rounded-2xl shadow-xl border border-gray-100 p-4 md:p-6">
+      <div class="flex flex-col md:flex-row gap-6">
+
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 shrink-0">
+          <button
+            type="button"
+            (click)="tabActivo = 'documentos'"
+            [class]="tabActivo === 'documentos'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="far fa-file-alt mr-2"></i>
+            Reglamentos
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'codigo-etica'"
+            [class]="tabActivo === 'codigo-etica'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-balance-scale mr-2"></i>
+            Código de Ética
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'clausula'"
+            [class]="tabActivo === 'clausula'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-file-signature mr-2"></i>
+            Cláusula
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'tarifario'"
+            [class]="tabActivo === 'tarifario'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-coins mr-2"></i>
+            Tarifario
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'arbitros'"
+            [class]="tabActivo === 'arbitros'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-user-tie mr-2"></i>
+            Árbitros
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'formatos'"
+            [class]="tabActivo === 'formatos'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-folder-open mr-2"></i>
+            Formatos
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'legislacion'"
+            [class]="tabActivo === 'legislacion'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-gavel mr-2"></i>
+            Legislación
+          </button>
+        </aside>
+
+        <!-- Contenido -->
+        <div class="flex-1 bg-[#F5F3FA] rounded-2xl p-4 md:p-6 min-h-[320px]">
+
+          <!-- Reglamentos -->
+          @if (tabActivo === 'documentos') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Reglamentos
+              </h3>
+
+              <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                  <div class="flex items-center gap-3 text-sm text-gray-700">
+                    <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                    <span class="break-all">
+                      REGLAMENTO DE ARBITRAJE CECARD - VIGENTE.pdf
+                    </span>
+                  </div>
+
+                  <a
+                    href="https://drive.google.com/file/d/1Wt4YyXadPFV1OjrLTnpEvSd4115ZoTSj/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                  >
+                    <i class="fas fa-download mr-2"></i>
+                    Descargar
+                  </a>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                  <div class="flex items-center gap-3 text-sm text-gray-700">
+                    <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                    <span class="break-all">
+                      REGLAMENTO DE ARBITRAJE CECARD - NO VIGENTE.pdf
+                    </span>
+                  </div>
+
+                  <a
+                    href="https://drive.google.com/file/d/1yhBUsT1GNgD7GrWNbRjJ1O7doTGux4aR/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                  >
+                    <i class="fas fa-download mr-2"></i>
+                    Descargar
+                  </a>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Código de Ética -->
+          @if (tabActivo === 'codigo-etica') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Código de Ética
+              </h3>
+
+              <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                  <div class="flex items-center gap-3 text-sm text-gray-700">
+                    <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                    <span class="break-all">
+                      CÓDIGO DE ÉTICA ARBITRAJE CECARD.pdf
+                    </span>
+                  </div>
+
+                  <a
+                    href="/documentos/arbitraje/Código de Ética Arbitraje CECARD.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                  >
+                    <i class="fas fa-download mr-2"></i>
+                    Descargar
+                  </a>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                  <div class="flex items-center gap-3 text-sm text-gray-700">
+                    <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                    <span class="break-all">
+                      CÓDIGO DE ÉTICA ARBITRAJE NO VIGENTE.pdf
+                    </span>
+                  </div>
+
+                  <a
+                    href="https://drive.google.com/file/d/13hYhDOoL0oOF4_xtakehIOZEwmkYLbsB/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                  >
+                    <i class="fas fa-download mr-2"></i>
+                    Descargar
+                  </a>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Cláusula -->
+          @if (tabActivo === 'clausula') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Cláusula
+              </h3>
+
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                <div class="flex items-center gap-3 text-sm text-gray-700">
+                  <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                  <span class="break-all">
+                    CLÁUSULA-ARBITRAL.pdf
+                  </span>
+                </div>
+
+                <a
+                  href="https://drive.google.com/file/d/1exkOnRKzbr09oibWCJp8tsRi-iKICJPX/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                >
+                  <i class="fas fa-download mr-2"></i>
+                  Descargar
+                </a>
+              </div>
+            </div>
+          }
+
+          <!-- Tarifario -->
+          @if (tabActivo === 'tarifario') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Tarifario
+              </h3>
+
+              <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                  <div class="flex items-center gap-3 text-sm text-gray-700">
+                    <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                    <span class="break-all">
+                      TARIFARIO-VIGENTE-DESDE-13.01.2025.pdf
+                    </span>
+                  </div>
+
+                  <a
+                    href="https://drive.google.com/file/d/10TRH5rTMNtHrrmq1kORKXntDkl9wm7yL/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                  >
+                    <i class="fas fa-download mr-2"></i>
+                    Descargar
+                  </a>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                  <div class="flex items-center gap-3 text-sm text-gray-700">
+                    <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                    <span class="break-all">
+                      TARIFARIO-CUANTÍAS-INDETERMINADAS.pdf
+                    </span>
+                  </div>
+
+                  <a
+                    href="https://drive.google.com/file/d/1P1KcUgPhJReXsS_q8N1Xns4Lg5pUViXp/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                  >
+                    <i class="fas fa-download mr-2"></i>
+                    Descargar
+                  </a>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                  <div class="flex items-center gap-3 text-sm text-gray-700">
+                    <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                    <span class="break-all">
+                      TARIFARIO DE ARANCELES - NO VIGENTE.pdf
+                    </span>
+                  </div>
+
+                  <a
+                    href="https://drive.google.com/file/d/1WZt6G9K00I8QAjAqqD5bTJyAQy0FBD92/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                  >
+                    <i class="fas fa-download mr-2"></i>
+                    Descargar
+                  </a>
+                </div>
+
+                <div class="pt-4 flex justify-center">
+                  <a
+                    href="https://calculadora-honorarios-arbitral-git-9cee84-cecard-gits-projects.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-sm font-semibold px-6 py-3 rounded-full shadow hover:opacity-90 transition"
+                  >
+                    <i class="fas fa-calculator mr-2"></i>
+                    Calculadora de Honorarios
+                  </a>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Árbitros -->
+          @if (tabActivo === 'arbitros') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Árbitros
+              </h3>
+
+              <div class="space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                  <div class="flex items-center gap-3 text-sm text-gray-700">
+                    <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                    <span class="break-all">
+                      NÓMINA DE ÁRBITROS ESPECIALISTAS EN CONTRATACIONES PÚBLICAS - CECARD.pdf
+                    </span>
+                  </div>
+
+                  <a
+                    href="/documentos/1. NÓMINA DE ÁRBITROS ESPECIALISTAS EN CONTRATACIONES PÚBLICAS - CECARD.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                  >
+                    <i class="fas fa-download mr-2"></i>
+                    Descargar
+                  </a>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                  <div class="flex items-center gap-3 text-sm text-gray-700">
+                    <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                    <span class="break-all">
+                      NÓMINA DE ÁRBITROS ESPECIALISTAS EN CIVIL Y COMERCIAL - CECARD.pdf
+                    </span>
+                  </div>
+
+                  <a
+                    href="/documentos/2. NÓMINA DE ÁRBITROS ESPECIALISTAS EN CIVIL Y COMERCIAL - CECARD.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                  >
+                    <i class="fas fa-download mr-2"></i>
+                    Descargar
+                  </a>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- Formatos -->
+          @if (tabActivo === 'formatos') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Formatos
+              </h3>
+
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+                <div class="flex items-center gap-3 text-sm text-gray-700">
+                  <i class="far fa-file-pdf text-[#3a2e6e] text-2xl"></i>
+                  <span class="break-all">
+                    1. REQUISITOS PARA LA INCORPORACIÓN A LA NÓMINA DE ÁRBITROS CECARD.pdf
+                  </span>
+                </div>
+
+                <a
+                  href="https://drive.google.com/file/d/1jkxEpE04-IWNN5cAEBoEh24l-3mDU7Ua/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center bg-gradient-to-r from-[#4b3b8a] to-[#b31257] text-white text-xs font-semibold px-5 py-3 rounded-full hover:opacity-90 transition"
+                >
+                  <i class="fas fa-download mr-2"></i>
+                  Descargar
+                </a>
+              </div>
+            </div>
+          }
+
+          <!-- Legislación -->
+          @if (tabActivo === 'legislacion') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Legislación
+              </h3>
+
+              <p class="text-gray-600 text-sm md:text-base leading-relaxed">
+                Aquí va la información sobre la legislación aplicable al arbitraje.
+              </p>
+            </div>
+          }
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,240 @@
+<section class="bg-gradient-to-b from-white to-[#F8F6FC] text-gray-900">
+  <!-- Banner -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+    <div class="relative rounded-2xl overflow-hidden shadow-lg">
+      <img
+        src="servicios/dispute/dispute.png"
+        alt="Dispute Boards CECARD"
+        class="w-full h-52 sm:h-64 md:h-80 object-cover"
+      />
+
+      <div class="absolute inset-0 bg-black/35 flex items-center justify-center text-center px-4">
+        <h1 class="text-white text-4xl sm:text-5xl md:text-6xl font-extrabold drop-shadow-lg">
+          Dispute Boards
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Introducción -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+    <div class="text-center max-w-4xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#3B2E6D] mb-5">
+        Dispute Boards
+      </h2>
+
+      <div class="w-24 h-1 bg-pink-600 mx-auto mb-6 rounded-full"></div>
+
+      <div class="space-y-5 text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed text-justify">
+        <p>
+          Los Dispute Boards son mecanismos especializados para prevenir y resolver controversias
+          durante la ejecución de proyectos, especialmente en obras, contratos de infraestructura
+          y relaciones contractuales complejas. Su finalidad es acompañar el desarrollo del proyecto,
+          atender desacuerdos oportunamente y evitar que las controversias afecten la continuidad
+          de la ejecución contractual.
+        </p>
+
+        <div class="bg-white border border-gray-100 rounded-2xl shadow-md p-5 md:p-6">
+          <h3 class="font-bold text-[#3B2E6D] text-lg md:text-xl mb-3">
+            ¿Cuál es su finalidad?
+          </h3>
+
+          <p>
+            A través de un panel imparcial y especializado, los Dispute Boards permiten emitir
+            recomendaciones o decisiones sobre controversias surgidas durante la ejecución del contrato.
+            De esta manera, contribuyen a una gestión más eficiente, técnica y preventiva de los conflictos.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenido con pestañas -->
+    <div class="mt-12 bg-white rounded-2xl shadow-xl border border-gray-100 p-4 md:p-6">
+      <div class="flex flex-col md:flex-row gap-6">
+
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 shrink-0">
+          <button
+            type="button"
+            (click)="tabActivo = 'documentos'"
+            [class]="tabActivo === 'documentos'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="far fa-file-alt mr-2"></i>
+            Reglamentos
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'codigo-etica'"
+            [class]="tabActivo === 'codigo-etica'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-balance-scale mr-2"></i>
+            Código de Ética
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'clausula'"
+            [class]="tabActivo === 'clausula'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-file-signature mr-2"></i>
+            Cláusula
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'tarifario'"
+            [class]="tabActivo === 'tarifario'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-coins mr-2"></i>
+            Tarifario
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'adjudicadores'"
+            [class]="tabActivo === 'adjudicadores'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-user-tie mr-2"></i>
+            Adjudicadores
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'formato'"
+            [class]="tabActivo === 'formato'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 mb-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-folder-open mr-2"></i>
+            Formato
+          </button>
+
+          <button
+            type="button"
+            (click)="tabActivo = 'legislacion'"
+            [class]="tabActivo === 'legislacion'
+              ? 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 bg-[#4B3B8A] text-white transition'
+              : 'w-full text-left font-bold text-sm rounded-xl shadow-md px-4 py-3 bg-white text-[#4B5873] hover:bg-[#F9F9F9] transition'"
+          >
+            <i class="fas fa-gavel mr-2"></i>
+            Legislación
+          </button>
+        </aside>
+
+        <!-- Contenido -->
+        <div class="flex-1 bg-[#F5F3FA] rounded-2xl p-4 md:p-6 min-h-[320px]">
+
+          <!-- Reglamentos -->
+          @if (tabActivo === 'documentos') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Reglamentos
+              </h3>
+
+              <div class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-5 text-gray-600 text-sm md:text-base">
+                <i class="far fa-file-alt text-[#3B2E6D] text-2xl mb-3 block"></i>
+                Aquí irá la información o documentos correspondientes a reglamentos de Dispute Boards.
+              </div>
+            </div>
+          }
+
+          <!-- Código de Ética -->
+          @if (tabActivo === 'codigo-etica') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Código de Ética
+              </h3>
+
+              <div class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-5 text-gray-600 text-sm md:text-base">
+                <i class="fas fa-balance-scale text-[#3B2E6D] text-2xl mb-3 block"></i>
+                Aquí irá la información sobre el Código de Ética aplicable a Dispute Boards.
+              </div>
+            </div>
+          }
+
+          <!-- Cláusula -->
+          @if (tabActivo === 'clausula') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Cláusula
+              </h3>
+
+              <div class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-5 text-gray-600 text-sm md:text-base">
+                <i class="fas fa-file-signature text-[#3B2E6D] text-2xl mb-3 block"></i>
+                Aquí irá la cláusula modelo para incorporar Dispute Boards en contratos.
+              </div>
+            </div>
+          }
+
+          <!-- Tarifario -->
+          @if (tabActivo === 'tarifario') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Tarifario
+              </h3>
+
+              <div class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-5 text-gray-600 text-sm md:text-base">
+                <i class="fas fa-coins text-[#3B2E6D] text-2xl mb-3 block"></i>
+                Aquí irá la información sobre costos, aranceles o tarifario del servicio.
+              </div>
+            </div>
+          }
+
+          <!-- Adjudicadores -->
+          @if (tabActivo === 'adjudicadores') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Adjudicadores
+              </h3>
+
+              <div class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-5 text-gray-600 text-sm md:text-base">
+                <i class="fas fa-user-tie text-[#3B2E6D] text-2xl mb-3 block"></i>
+                Aquí irá la información sobre adjudicadores disponibles o nómina correspondiente.
+              </div>
+            </div>
+          }
+
+          <!-- Formato -->
+          @if (tabActivo === 'formato') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Formato
+              </h3>
+
+              <div class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-5 text-gray-600 text-sm md:text-base">
+                <i class="fas fa-folder-open text-[#3B2E6D] text-2xl mb-3 block"></i>
+                Aquí irán los formatos disponibles para el proceso.
+              </div>
+            </div>
+          }
+
+          <!-- Legislación -->
+          @if (tabActivo === 'legislacion') {
+            <div class="bg-white rounded-2xl shadow-md p-5">
+              <h3 class="font-bold text-xl mb-4 text-[#4B3B6C]">
+                Legislación
+              </h3>
+
+              <div class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-5 text-gray-600 text-sm md:text-base">
+                <i class="fas fa-gavel text-[#3B2E6D] text-2xl mb-3 block"></i>
+                Aquí irá la legislación aplicable a Dispute Boards.
+              </div>
+            </div>
+          }
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
