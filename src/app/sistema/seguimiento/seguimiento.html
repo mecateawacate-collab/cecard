@@ -10,7 +10,7 @@
       </p>
     </div>
 
-    <form class="space-y-6">
+    <form class="space-y-6" (ngSubmit)="ingresar()">
       <div>
         <label
           for="numeroExpediente"
@@ -23,7 +23,11 @@
           id="numeroExpediente"
           name="numeroExpediente"
           type="text"
-          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-[#1E1B3A] shadow-sm outline-none transition-all duration-300 focus:border-[#5E4CA9] focus:ring-4 focus:ring-[#5E4CA9]/10"
+          [ngModel]="numeroExpediente()"
+          (ngModelChange)="numeroExpediente.set($event)"
+          [disabled]="cargando()"
+          autocomplete="off"
+          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-[#1E1B3A] shadow-sm outline-none transition-all duration-300 focus:border-[#5E4CA9] focus:ring-4 focus:ring-[#5E4CA9]/10 disabled:cursor-not-allowed disabled:bg-gray-100"
         />
       </div>
 
@@ -39,7 +43,11 @@
           id="anio"
           name="anio"
           type="text"
-          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-[#1E1B3A] shadow-sm outline-none transition-all duration-300 focus:border-[#5E4CA9] focus:ring-4 focus:ring-[#5E4CA9]/10"
+          [ngModel]="anio()"
+          (ngModelChange)="anio.set($event)"
+          [disabled]="cargando()"
+          autocomplete="off"
+          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-[#1E1B3A] shadow-sm outline-none transition-all duration-300 focus:border-[#5E4CA9] focus:ring-4 focus:ring-[#5E4CA9]/10 disabled:cursor-not-allowed disabled:bg-gray-100"
         />
       </div>
 
@@ -54,12 +62,20 @@
         <select
           id="tipo"
           name="tipo"
-          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-[#1E1B3A] shadow-sm outline-none transition-all duration-300 focus:border-[#5E4CA9] focus:ring-4 focus:ring-[#5E4CA9]/10"
+          [ngModel]="tipo()"
+          (ngModelChange)="tipo.set($event)"
+          [disabled]="cargando() || cargandoTipos()"
+          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-[#1E1B3A] shadow-sm outline-none transition-all duration-300 focus:border-[#5E4CA9] focus:ring-4 focus:ring-[#5E4CA9]/10 disabled:cursor-not-allowed disabled:bg-gray-100"
         >
-          <option value="">Selecciona una opción</option>
-          <option value="laudo">Laudo Arbitral</option>
-          <option value="jprd">Decisión JPRD</option>
-          <option value="etica">Consejo de Ética</option>
+          <option value="">
+            {{ cargandoTipos() ? 'Cargando tipos...' : 'Selecciona una opción' }}
+          </option>
+
+          @for (item of tipos(); track item) {
+            <option [value]="item">
+              {{ item }}
+            </option>
+          }
         </select>
       </div>
 
@@ -67,6 +83,7 @@
         <label
           for="password"
           class="mb-2 block text-sm font-bold text-[#1E1B3A]"
+          
         >
           Contraseña:
         </label>
@@ -75,15 +92,30 @@
           id="password"
           name="password"
           type="password"
-          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-[#1E1B3A] shadow-sm outline-none transition-all duration-300 focus:border-[#5E4CA9] focus:ring-4 focus:ring-[#5E4CA9]/10"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          [disabled]="cargando()"
+          autocomplete="off"
+          class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-[#1E1B3A] shadow-sm outline-none transition-all duration-300 focus:border-[#5E4CA9] focus:ring-4 focus:ring-[#5E4CA9]/10 disabled:cursor-not-allowed disabled:bg-gray-100"
         />
       </div>
 
+      @if (error()) {
+        <p class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
+          {{ error() }}
+        </p>
+      }
+
       <button
         type="submit"
-        class="mt-4 w-full rounded-lg bg-[#3B2E6D] px-6 py-3 font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-[#A52A5A] hover:shadow-lg"
+        [disabled]="cargando() || cargandoTipos()"
+        class="mt-4 w-full rounded-lg bg-[#3B2E6D] px-6 py-3 font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:bg-[#A52A5A] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
       >
-        Ingresar
+        @if (cargando()) {
+          Validando...
+        } @else {
+          Ingresar
+        }
       </button>
     </form>
   </div>

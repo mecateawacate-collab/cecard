@@ -22,6 +22,10 @@ import { Transparencia } from './paginas/transparencia/transparencia';
 // Sistema
 import { MesaPartes } from './sistema/mesa-partes/mesa-partes';
 import { Seguimiento } from './sistema/seguimiento/seguimiento';
+import { Panel } from './sistema/seguimiento/panel/panel';
+import { Configuracion } from './sistema/configuracion/configuracion';
+import { Control } from './sistema/configuracion/control/control';
+
 
 export const routes: Routes = [
   // Redirección a la página de inicio
@@ -49,5 +53,10 @@ export const routes: Routes = [
   // Sistema
   { path: 'mesa-partes', component: MesaPartes },
   { path: 'seguimiento', component: Seguimiento },
+  { path: 'panel', component: Panel },
+  { path: 'configuracion', component: Configuracion },
+  { path: 'control', component: Control },
+
+
 
 ];

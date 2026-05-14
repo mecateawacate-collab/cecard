@@ -4,6 +4,7 @@
       <h2 class="text-3xl font-bold text-slate-900 md:text-4xl">
         Mesa de Partes Virtual
       </h2>
+
       <p class="mt-2 text-sm text-slate-500 md:text-base">
         Complete los siguientes campos para registrar su solicitud
       </p>
@@ -20,13 +21,16 @@
             <label for="nombre" class="mb-2 block text-sm font-medium text-slate-700">
               Nombre y apellidos <span class="text-rose-600">*</span>
             </label>
+
             <input
               id="nombre"
               name="nombre"
               type="text"
-              [(ngModel)]="nombre"
+              [ngModel]="nombre()"
+              (ngModelChange)="nombre.set($event)"
+              [disabled]="enviando() || solicitud_enviada()"
               required
-              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100 disabled:cursor-not-allowed disabled:bg-slate-100"
             />
           </div>
 
@@ -34,12 +38,15 @@
             <label for="tipo_doc" class="mb-2 block text-sm font-medium text-slate-700">
               Tipo de documento <span class="text-rose-600">*</span>
             </label>
+
             <select
               id="tipo_doc"
               name="tipo_doc"
-              [(ngModel)]="tipo_doc"
+              [ngModel]="tipo_doc()"
+              (ngModelChange)="tipo_doc.set($event)"
+              [disabled]="enviando() || solicitud_enviada()"
               required
-              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100 disabled:cursor-not-allowed disabled:bg-slate-100"
             >
               <option value="">Selecciona</option>
               <option value="DNI">DNI</option>
@@ -53,13 +60,16 @@
             <label for="num_doc" class="mb-2 block text-sm font-medium text-slate-700">
               Número de documento <span class="text-rose-600">*</span>
             </label>
+
             <input
               id="num_doc"
               name="num_doc"
               type="text"
-              [(ngModel)]="num_doc"
+              [ngModel]="num_doc()"
+              (ngModelChange)="num_doc.set($event)"
+              [disabled]="enviando() || solicitud_enviada()"
               required
-              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100 disabled:cursor-not-allowed disabled:bg-slate-100"
             />
           </div>
 
@@ -67,13 +77,16 @@
             <label for="email" class="mb-2 block text-sm font-medium text-slate-700">
               Correo electrónico <span class="text-rose-600">*</span>
             </label>
+
             <input
               id="email"
               name="email"
               type="email"
-              [(ngModel)]="email"
+              [ngModel]="email()"
+              (ngModelChange)="email.set($event)"
+              [disabled]="enviando() || solicitud_enviada()"
               required
-              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100 disabled:cursor-not-allowed disabled:bg-slate-100"
             />
           </div>
 
@@ -81,13 +94,16 @@
             <label for="telefono" class="mb-2 block text-sm font-medium text-slate-700">
               Teléfono
             </label>
+
             <input
               id="telefono"
               name="telefono"
               type="text"
-              [(ngModel)]="telefono"
+              [ngModel]="telefono()"
+              (ngModelChange)="telefono.set($event)"
+              [disabled]="enviando() || solicitud_enviada()"
               placeholder="Opcional"
-              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100 disabled:cursor-not-allowed disabled:bg-slate-100"
             />
           </div>
         </div>
@@ -103,17 +119,27 @@
             <label for="destinatario" class="mb-2 block text-sm font-medium text-slate-700">
               Dirigido a <span class="text-rose-600">*</span>
             </label>
+
             <select
               id="destinatario"
               name="destinatario"
-              [(ngModel)]="destinatario"
+              [ngModel]="destinatario()"
+              (ngModelChange)="destinatario.set($event)"
+              [disabled]="enviando() || solicitud_enviada() || cargando_oficinas()"
               required
-              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100 disabled:cursor-not-allowed disabled:bg-slate-100"
             >
               <option value="">
-                {{ cargando_oficinas ? 'Cargando oficinas...' : 'Selecciona una opción' }}
+                @if (cargando_oficinas()) {
+                  Cargando oficinas...
+                } @else if (oficinas().length === 0) {
+                  No se pudieron cargar oficinas
+                } @else {
+                  Selecciona una opción
+                }
               </option>
-              @for (oficina of oficinas; track oficina.oficina) {
+
+              @for (oficina of oficinas(); track oficina.oficina) {
                 <option [value]="oficina.oficina">
                   {{ oficina.oficina }}
                 </option>
@@ -125,16 +151,20 @@
             <label for="asunto" class="mb-2 block text-sm font-medium text-slate-700">
               Asunto <span class="text-rose-600">*</span>
             </label>
+
             <input
               id="asunto"
               name="asunto"
               type="text"
               maxlength="80"
-              [(ngModel)]="asunto"
+              [ngModel]="asunto()"
+              (ngModelChange)="asunto.set($event)"
+              [disabled]="enviando() || solicitud_enviada()"
               placeholder="Ejemplo: Solicitud de información"
               required
-              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+              class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100 disabled:cursor-not-allowed disabled:bg-slate-100"
             />
+
             <p class="mt-2 text-xs text-slate-500">
               {{ asunto_largo }}/80
             </p>
@@ -156,20 +186,24 @@
             <label
               for="pdf"
               class="inline-flex cursor-pointer items-center justify-center rounded-lg bg-[#5b3f97] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#4c3480]"
+              [class.pointer-events-none]="enviando() || solicitud_enviada()"
+              [class.opacity-60]="enviando() || solicitud_enviada()"
             >
               Cargar archivo (PDF)
             </label>
 
             <span class="text-sm italic text-slate-500">
-              {{ nombre_archivo }}
+              {{ nombre_archivo() }}
             </span>
           </div>
 
           <input
+            #pdf_input
             id="pdf"
             type="file"
             accept="application/pdf"
             class="hidden"
+            [disabled]="enviando() || solicitud_enviada()"
             (change)="seleccionar_pdf($event)"
           />
 
@@ -183,9 +217,11 @@
             id="link_pdf"
             name="link_pdf"
             type="url"
-            [(ngModel)]="link_pdf"
+            [ngModel]="link_pdf()"
+            (ngModelChange)="link_pdf.set($event)"
+            [disabled]="enviando() || solicitud_enviada()"
             placeholder="Enlace en la nube (Google Drive, OneDrive, etc.)"
-            class="mt-4 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100"
+            class="mt-4 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-violet-600 focus:ring-4 focus:ring-violet-100 disabled:cursor-not-allowed disabled:bg-slate-100"
           />
         </div>
       </fieldset>
@@ -195,6 +231,7 @@
           1. Acepto que todo el trámite de la solicitud será notificado a mi correo
           electrónico proporcionado.
         </p>
+
         <p>
           2. En cumplimiento de la Ley N.° 29733, Ley de Protección de Datos
           Personales, se informa que los datos proporcionados serán utilizados
@@ -207,52 +244,114 @@
           id="acepto_terminos"
           name="acepto_terminos"
           type="checkbox"
-          [(ngModel)]="acepto_terminos"
-          class="mt-1 h-4 w-4 rounded border-slate-300 text-[#5b3f97] focus:ring-[#5b3f97]"
+          [ngModel]="acepto_terminos()"
+          (ngModelChange)="acepto_terminos.set($event)"
+          [disabled]="enviando() || solicitud_enviada()"
+          class="mt-1 h-4 w-4 rounded border-slate-300 text-[#5b3f97] focus:ring-[#5b3f97] disabled:cursor-not-allowed"
         />
+
         <label for="acepto_terminos" class="text-sm font-medium text-[#be185d]">
           Acepto los Términos y Condiciones.
         </label>
       </div>
 
-    @if (exito) {
-    <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">
-        <p class="font-semibold">Solicitud enviada correctamente.</p>
-        <p class="mt-1">{{ mensaje }}</p>
-
-        <div class="mt-4">
-        <button
-            type="button"
-            (click)="nueva_solicitud()"
-            class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-emerald-700"
-        >
-            Registrar otra solicitud
-        </button>
-        </div>
-    </div>
-    }
-
-      @if (error) {
+      @if (error()) {
         <div class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700">
-          {{ mensaje }}
+          {{ mensaje() }}
         </div>
       }
 
       <div>
         <button
           type="submit"
-          [disabled]="enviando || solicitud_enviada"
+          [disabled]="enviando() || solicitud_enviada() || cargando_oficinas()"
           class="inline-flex items-center justify-center rounded-full bg-slate-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-70"
         >
-          {{
-            enviando
-              ? 'Enviando...'
-              : solicitud_enviada
-              ? 'Solicitud enviada'
-              : 'Enviar solicitud'
-          }}
+          @if (enviando()) {
+            Enviando...
+          } @else if (solicitud_enviada()) {
+            Solicitud enviada
+          } @else {
+            Enviar solicitud
+          }
         </button>
       </div>
     </form>
   </div>
+
+
+  @if (exito()) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4">
+      <div class="relative w-full max-w-3xl rounded-[28px] bg-white px-6 py-9 text-center shadow-2xl md:px-12">
+        <button
+          type="button"
+          (click)="cerrar_modal_exito()"
+          class="absolute right-6 top-5 text-3xl font-light leading-none text-slate-400 transition hover:text-slate-700"
+          aria-label="Cerrar"
+        >
+          ×
+        </button>
+
+        <h3 class="text-4xl font-semibold tracking-tight text-slate-900 md:text-5xl">
+          Solicitud enviada
+        </h3>
+
+        <p class="mt-6 text-xl text-slate-600 md:text-2xl">
+          Su solicitud fue enviada correctamente.
+        </p>
+
+        <p class="mt-4 text-2xl text-slate-700 md:text-3xl">
+          Código:
+          <span class="font-extrabold text-slate-800">
+            {{ codigo_generado() }}
+          </span>
+        </p>
+
+        <div class="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+          <button
+            type="button"
+            (click)="descargar_constancia_pdf()"
+            class="inline-flex items-center justify-center rounded-full bg-[#5b46e8] px-7 py-3 text-sm font-bold text-white transition hover:bg-[#4938c7]"
+          >
+            Descargar PDF de confirmación
+          </button>
+
+          <button
+            type="button"
+            (click)="nueva_solicitud()"
+            class="inline-flex items-center justify-center rounded-full bg-[#079b70] px-7 py-3 text-sm font-bold text-white transition hover:bg-[#078662]"
+          >
+            Llenar otro formulario
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (modal_carga()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+    <div class="w-full max-w-2xl rounded-[28px] bg-white px-6 py-8 shadow-2xl md:px-10">
+      <div class="text-center">
+        <h3 class="text-3xl font-semibold text-slate-800 md:text-4xl">
+          Procesando...
+        </h3>
+
+        <p class="mt-3 text-sm text-slate-500">
+          Estamos registrando su solicitud. No cierre esta ventana.
+        </p>
+
+        <div class="mt-8 h-7 w-full overflow-hidden rounded-full bg-slate-200">
+          <div
+            class="h-full rounded-full bg-[#c00063] transition-all duration-300"
+            [style.width.%]="progreso_carga()"
+          ></div>
+        </div>
+
+        <p class="mt-8 text-2xl font-medium text-slate-700">
+          {{ progreso_carga() }}%
+        </p>
+      </div>
+    </div>
+  </div>
+}
 </section>

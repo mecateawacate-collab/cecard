@@ -1,0 +1,499 @@
+<section class="min-h-[70vh] bg-[#F6F4FA] px-4 py-10 text-[#1E1B3A]">
+  @if (modalCarga()) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+      <div class="w-full max-w-md rounded-2xl bg-white p-7 shadow-2xl">
+        <div class="text-center">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#F6F4FA] text-[#3B2E6D]">
+            <i class="fas fa-file-upload text-2xl"></i>
+          </div>
+
+          <h3 class="mt-4 text-lg font-bold text-[#3B2E6D]">
+            Enviando documento
+          </h3>
+
+          <p class="mt-2 text-sm text-gray-600">
+            Por favor no cierres esta ventana.
+          </p>
+        </div>
+
+        <div class="mt-6 h-3 overflow-hidden rounded-full bg-gray-200">
+          <div
+            class="h-full rounded-full bg-[#C0006F] transition-all duration-300"
+            [style.width.%]="progresoCarga()"
+          ></div>
+        </div>
+
+        <p class="mt-3 text-center text-sm font-bold text-[#3B2E6D]">
+          {{ progresoCarga() }}%
+        </p>
+      </div>
+    </div>
+  }
+
+
+
+  @if (modalConfirmacion()) {
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+      <div class="relative w-full max-w-2xl rounded-3xl bg-white px-6 py-8 text-center shadow-2xl md:px-10">
+        <button
+          type="button"
+          (click)="cerrarModalConfirmacion()"
+          class="absolute right-5 top-4 text-3xl font-light leading-none text-gray-400 transition hover:text-gray-700"
+          aria-label="Cerrar modal"
+        >
+          ×
+        </button>
+
+        <h2 class="text-3xl font-extrabold text-[#1F2937] md:text-4xl">
+          Solicitud enviada
+        </h2>
+
+        <p class="mt-5 text-lg text-gray-600 md:text-xl">
+          Su solicitud fue enviada correctamente.
+        </p>
+
+        <p class="mt-4 text-xl font-medium text-gray-700 md:text-2xl">
+          Código:
+          <span class="font-extrabold text-[#334155]">
+            {{ codigoComprobante() }}
+          </span>
+        </p>
+
+        <div class="mt-8 flex flex-col justify-center gap-4 md:flex-row">
+          <button
+            type="button"
+            (click)="descargarComprobantePdf()"
+            class="rounded-full bg-[#5145E5] px-8 py-4 text-sm font-extrabold text-white transition hover:bg-[#4338CA]"
+          >
+            Descargar PDF de confirmación
+          </button>
+
+          <button
+            type="button"
+            (click)="llenarOtroFormulario()"
+            class="rounded-full bg-[#059669] px-8 py-4 text-sm font-extrabold text-white transition hover:bg-[#047857]"
+          >
+            Llenar otro formulario
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="mx-auto max-w-5xl">
+
+    <div class="mb-8 flex justify-end">
+      <button
+        type="button"
+        (click)="cerrarSesion()"
+        class="rounded-md bg-[#C0006F] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#A52A5A]"
+      >
+        Cerrar sesión
+      </button>
+    </div>
+
+    @if (expediente) {
+
+      <!-- INFORMACIÓN DEL EXPEDIENTE -->
+      <div class="overflow-hidden rounded-xl bg-white shadow-md">
+        <div class="bg-[#29204D] px-6 py-4">
+          <h2 class="text-xl font-semibold uppercase tracking-wide text-white">
+            Información de expediente
+          </h2>
+        </div>
+
+        <div class="space-y-5 px-8 py-7 text-sm md:text-base">
+          <p>
+            <strong>Nro. Expediente:</strong>
+            {{ expediente.expediente }}
+          </p>
+
+          <p>
+            <strong>Tribunal Colegiado y/o Adjudicador único:</strong>
+            {{ expediente.tribunal || 'No registrado' }}
+          </p>
+
+          <p>
+            <strong>Partes:</strong>
+            {{ expediente.demandante }} / {{ expediente.demandado }}
+          </p>
+        </div>
+      </div>
+
+      <form class="mt-8 space-y-8" (ngSubmit)="registrarDocumento()">
+
+        <!-- INFORMACIÓN DEL DOCUMENTO -->
+        <div class="overflow-hidden rounded-xl bg-white shadow-md">
+          <div class="bg-[#29204D] px-6 py-4">
+            <h2 class="text-xl font-semibold uppercase tracking-wide text-white">
+              Información del documento
+            </h2>
+          </div>
+
+          <div class="space-y-5 px-8 py-7">
+
+            <div>
+              <label class="mb-2 block text-sm font-bold">
+                Parte que presenta el documento <span class="text-[#C0006F]">*</span>
+              </label>
+
+              <select
+                name="parte"
+                [(ngModel)]="nuevoRegistro.parte"
+                [disabled]="enviando()"
+                class="w-full rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-[#3B2E6D] disabled:cursor-not-allowed disabled:bg-gray-100"
+                required
+              >
+                <option value="">Selecciona una opción</option>
+                <option [value]="expediente.demandante">
+                  {{ expediente.demandante }}
+                </option>
+                <option [value]="expediente.demandado">
+                  {{ expediente.demandado }}
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-bold">
+                Indique a quién va dirigido su escrito <span class="text-[#C0006F]">*</span>
+              </label>
+
+              <select
+                name="destinatario"
+                [(ngModel)]="nuevoRegistro.destinatario"
+                (ngModelChange)="cambiarDestinatario()"
+                [disabled]="enviando()"
+                class="w-full rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-[#3B2E6D] disabled:cursor-not-allowed disabled:bg-gray-100"
+                required
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="Secretaria General">Secretaria General</option>
+                <option value="Tribunal Arbitral Colegiado y/o único">Tribunal Arbitral Colegiado y/o único</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-bold">
+                Seleccione la materia de su escrito <span class="text-[#C0006F]">*</span>
+              </label>
+
+              <select
+                name="materia"
+                [(ngModel)]="nuevoRegistro.materia"
+                [disabled]="enviando() || !nuevoRegistro.destinatario"
+                class="w-full rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-[#3B2E6D] disabled:cursor-not-allowed disabled:bg-gray-100"
+                required
+              >
+                <option value="">
+                  @if (!nuevoRegistro.destinatario) {
+                    Primero selecciona el destinatario
+                  } @else {
+                    Selecciona una opción
+                  }
+                </option>
+
+                @for (materia of materiasDisponibles(); track materia) {
+                  <option [value]="materia">
+                    {{ materia }}
+                  </option>
+                }
+              </select>
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-bold">
+                Sumilla del escrito máx. 80 caracteres <span class="text-[#C0006F]">*</span>
+              </label>
+
+              <textarea
+                name="sumilla"
+                [(ngModel)]="nuevoRegistro.sumilla"
+                [disabled]="enviando()"
+                maxlength="80"
+                rows="2"
+                placeholder="Ejem. Cumple mandato"
+                class="w-full resize-none rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-[#3B2E6D] disabled:cursor-not-allowed disabled:bg-gray-100"
+                required
+              ></textarea>
+
+              <p class="mt-2 text-sm text-gray-500">
+                {{ nuevoRegistro.sumilla.length }}/80
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ADJUNTAR DOCUMENTO -->
+        <div class="overflow-hidden rounded-xl bg-white shadow-md">
+          <div class="bg-[#29204D] px-6 py-4">
+            <h2 class="text-xl font-semibold uppercase tracking-wide text-white">
+              Adjuntar documento
+            </h2>
+          </div>
+
+          <div class="space-y-6 px-8 py-7">
+
+            <div>
+              <label class="mb-2 block text-sm font-bold">
+                Documento principal PDF <span class="text-[#C0006F]">*</span>:
+              </label>
+
+              <input
+                type="file"
+                accept="application/pdf"
+                [disabled]="enviando()"
+                (change)="seleccionarArchivo($event, 'pdf')"
+                class="block w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-[#5B3A92] file:px-4 file:py-3 file:font-bold file:text-white hover:file:bg-[#3B2E6D] disabled:cursor-not-allowed disabled:opacity-60"
+              />
+
+              <p class="mt-2 text-sm italic text-gray-600">
+                {{ archivoPdfNombre || 'No se ha seleccionado ningún archivo' }}
+              </p>
+
+              <p class="mt-4 text-sm text-gray-600">
+                Si pesa más de 20 MB, suba el documento a la nube y especifique el enlace:
+              </p>
+
+              <input
+                type="text"
+                name="linkPdf"
+                [(ngModel)]="nuevoRegistro.linkPdf"
+                [disabled]="enviando()"
+                placeholder="Enlace en la nube"
+                class="mt-3 w-full rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-[#3B2E6D] disabled:cursor-not-allowed disabled:bg-gray-100"
+              />
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-bold">
+                Documento principal Word <span class="text-[#C0006F]">*</span>:
+              </label>
+
+              <input
+                type="file"
+                accept=".doc,.docx"
+                [disabled]="enviando()"
+                (change)="seleccionarArchivo($event, 'word')"
+                class="block w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-[#5B3A92] file:px-4 file:py-3 file:font-bold file:text-white hover:file:bg-[#3B2E6D] disabled:cursor-not-allowed disabled:opacity-60"
+              />
+
+              <p class="mt-2 text-sm italic text-gray-600">
+                {{ archivoWordNombre || 'No se ha seleccionado ningún archivo' }}
+              </p>
+
+              <p class="mt-4 text-sm text-gray-600">
+                Si pesa más de 20 MB, suba el documento a la nube y especifique el enlace:
+              </p>
+
+              <input
+                type="text"
+                name="linkWord"
+                [(ngModel)]="nuevoRegistro.linkWord"
+                [disabled]="enviando()"
+                placeholder="Enlace en la nube"
+                class="mt-3 w-full rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-[#3B2E6D] disabled:cursor-not-allowed disabled:bg-gray-100"
+              />
+            </div>
+
+            <div>
+              <label class="mb-2 block text-sm font-bold">
+                Anexos:
+              </label>
+
+              <input
+                type="file"
+                multiple
+                [disabled]="enviando()"
+                (change)="seleccionarArchivo($event, 'anexos')"
+                class="block w-full text-sm file:mr-4 file:rounded-md file:border-0 file:bg-[#5B3A92] file:px-4 file:py-3 file:font-bold file:text-white hover:file:bg-[#3B2E6D] disabled:cursor-not-allowed disabled:opacity-60"
+              />
+
+              <p class="mt-2 text-sm italic text-gray-600">
+                {{ anexosNombre || 'No se ha seleccionado ningún archivo' }}
+              </p>
+
+              <p class="mt-4 text-sm text-gray-600">
+                Si pesa más de 20 MB, suba el documento a la nube y especifique el enlace:
+              </p>
+
+              <input
+                type="text"
+                name="linkAnexos"
+                [(ngModel)]="nuevoRegistro.linkAnexos"
+                [disabled]="enviando()"
+                placeholder="Enlace en la nube"
+                class="mt-3 w-full rounded-md border border-gray-300 px-4 py-3 outline-none focus:border-[#3B2E6D] disabled:cursor-not-allowed disabled:bg-gray-100"
+              />
+            </div>
+
+            <button
+              type="submit"
+              [disabled]="enviando()"
+              class="w-full rounded-md bg-[#C0006F] px-6 py-4 font-bold text-white transition hover:bg-[#A52A5A] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              @if (enviando()) {
+                Enviando documento...
+              } @else {
+                Enviar formulario
+              }
+            </button>
+
+            @if (error()) {
+              <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
+                {{ error() }}
+              </div>
+            }
+
+            @if (mensaje()) {
+              <div class="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm font-semibold text-green-700">
+                {{ mensaje() }}
+              </div>
+            }
+
+          </div>
+        </div>
+      </form>
+
+      <!-- HISTORIAL DE SEGUIMIENTO -->
+      <div class="mt-8 overflow-hidden rounded-xl bg-white shadow-md">
+        <div class="bg-[#29204D] px-6 py-4">
+          <h2 class="text-xl font-semibold uppercase tracking-wide text-white">
+            Historial de Seguimiento del Expediente
+          </h2>
+        </div>
+
+        <div class="px-6 py-6">
+
+          @if (cargandoRegistros()) {
+            <div class="rounded-lg border border-[#D8D2E8] bg-[#FAF8FF] px-5 py-6 text-center text-sm text-gray-600">
+              Cargando historial del expediente...
+            </div>
+          } @else if (registros().length > 0) {
+
+            <div class="space-y-4">
+              @for (registro of registros(); track $index) {
+                <div class="rounded-lg border border-[#E7E2F1] bg-[#FAF8FF] p-5">
+                  <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                    <div>
+                      <p class="text-sm font-bold text-[#29204D]">
+                        {{ registro.materia }}
+                      </p>
+
+                      <p class="mt-1 text-xs text-gray-500">
+                        Fecha de envío: {{ registro.fechaEnvio }}
+                      </p>
+                    </div>
+
+                    @if (registro.estado === 'Revision') {
+                      <span class="rounded-full bg-yellow-50 px-3 py-1 text-xs font-bold text-yellow-700">
+                        En revisión
+                      </span>
+                    } @else {
+                      <span class="rounded-full bg-green-50 px-3 py-1 text-xs font-bold text-green-700">
+                        Procesado
+                      </span>
+                    }
+                  </div>
+
+                  <p class="mt-3 text-sm text-gray-700">
+                    {{ registro.sumilla }}
+                  </p>
+
+                  <div class="mt-4 grid gap-2 text-sm md:grid-cols-2">
+                    <p>
+                      <strong>Parte:</strong>
+                      {{ registro.parte }}
+                    </p>
+
+                    <p>
+                      <strong>Destinatario:</strong>
+                      {{ registro.destinatario }}
+                    </p>
+                  </div>
+
+                  <div class="mt-4 flex flex-wrap gap-3 text-sm">
+                    @if (estaEnRevision(registro)) {
+                      <span class="rounded-full bg-yellow-50 px-3 py-1 text-xs font-bold text-yellow-700">
+                        Archivo en revisión
+                      </span>
+
+                      @if (registro.pdf) {
+                        <span class="rounded-full bg-[#EDE7F6] px-3 py-1 text-xs font-bold text-[#3B2E6D]">
+                          PDF cargado
+                        </span>
+                      }
+
+                      @if (registro.word) {
+                        <span class="rounded-full bg-[#EDE7F6] px-3 py-1 text-xs font-bold text-[#3B2E6D]">
+                          Word cargado
+                        </span>
+                      }
+
+                      @if (registro.anexo) {
+                        <span class="rounded-full bg-[#EDE7F6] px-3 py-1 text-xs font-bold text-[#3B2E6D]">
+                          Anexo cargado
+                        </span>
+                      }
+                    } @else {
+                      @if (puedeAbrirRegistro(registro) && esLink(registro.pdf)) {
+                        <a
+                          [href]="registro.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="font-bold text-[#C0006F] underline"
+                        >
+                          Ver PDF
+                        </a>
+                      }
+
+                      @if (puedeAbrirRegistro(registro) && esLink(registro.word)) {
+                        <a
+                          [href]="registro.word"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="font-bold text-[#C0006F] underline"
+                        >
+                          Ver Word
+                        </a>
+                      }
+
+                      @if (puedeAbrirRegistro(registro) && esLink(registro.anexo)) {
+                        <a
+                          [href]="registro.anexo"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="font-bold text-[#C0006F] underline"
+                        >
+                          Ver anexo
+                        </a>
+                      }
+
+                      @if (
+                        puedeAbrirRegistro(registro) &&
+                        !esLink(registro.pdf) &&
+                        !esLink(registro.word) &&
+                        !esLink(registro.anexo)
+                      ) {
+                        <span class="text-gray-500">
+                          Archivo registrado, pero no hay enlace disponible.
+                        </span>
+                      }
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+
+          } @else {
+            <div class="rounded-lg border border-dashed border-[#B9B2D0] bg-[#FAF8FF] px-5 py-6 text-center text-sm text-gray-600">
+              Este expediente aún no tiene documentos registrados visibles.
+            </div>
+          }
+
+        </div>
+      </div>
+    }
+  </div>
+</section>
